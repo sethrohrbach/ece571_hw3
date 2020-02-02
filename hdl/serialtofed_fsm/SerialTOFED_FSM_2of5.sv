@@ -3,7 +3,7 @@
 //
 // Author: Seth Rohrbach (rseth@pdx.edu)
 // Version: 1.0
-// Last updated: Feb 1 2020
+// Last updated: Feb 2 2020
 //
 // Description:
 // This module checks for valid 2-of-5 serial codes using a FSM design.
@@ -26,40 +26,27 @@ state_t next_s;
 //State update block:
 always_ff @(posedge clk)
 begin
-  /*
   if (resetH)
   begin
     if (din)
-    current_s <= S1_1;
+    current_s = S_RST;
     else
-    current_s <= S1_0;
+    current_s = S_RST;
   end
-  else
-  begin */
-  $strobe($time, "\tCURRENT STATE = %s , NEXT STATE = %s, DIN = %b", current_s, next_s, din);
+  else begin
   current_s <= next_s;
-//end
+  end
 end
 
 
 //Next state comb logic block:
-always_comb //@(posedge clk, posedge resetH)
+always_comb
 begin
-/*
-  if (resetH) //if reset, then reset.
-  begin
-    if (din) //if din, we need to set states back to 1_1
-    begin
-      next_s <= S1_1;
-    end
-    else //else we set back to 1_0
-    begin
-      next_s <= S1_0;
-    end
-  end
-
-  else *///else proceed with next state logic. hooo boy lots of states here we go.
-  case (current_s)
+  if (resetH) //Allow for asynchronous reset.
+  next_s = S_RST;
+  else
+//Proceed with next state logic. hooo boy lots of states here we go.
+  unique case (current_s)
     S1_0 : begin
             if (din)
             next_s = S2_1;
@@ -180,35 +167,23 @@ begin
             else
             next_s = S1_0;
           end
+    S_RST : begin
+              if (din)
+              next_s = S1_1;
+              else
+              next_s = S1_0;
+            end
   endcase
-
-  //current_s <= next_s;
-
-/*
-  if (current_s == S5_2)
-  valid = TRUE;
-  else
-  valid = FALSE;
-*/
- //$display($time, "\tCURRENT STATE = %s , NEXT STATE = %s, DIN = %b", current_s, next_s, din);
-
 end
 
 
-
-
-
-
 //And finally, output logic block:
-always_comb // @(posedge next_s)
+always_comb
 begin
   if (current_s == S5_2)
   valid = TRUE;
   else
   valid = FALSE;
 end
-
-
-
 
 endmodule

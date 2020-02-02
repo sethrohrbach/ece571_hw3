@@ -5,7 +5,7 @@
 // Author: Roy Kravitz
 // Last Edited by: Seth Rohrbach
 // Version:			1.3
-// Last modified:	1-Feb-2020
+// Last modified:	2-Feb-2020
 //
 // This testbench verifies (or not) the functionality of the
 // two 2-of-5 checkers implemented for the Serial TOFED problem
@@ -26,8 +26,8 @@ parameter	CLK_PERIOD = 10;								// clock period is 10 time units
 bit 	[STIMBITS_SIZE-1:0]		stimulus, datastream;		// serial data stream to check
 bit		[FBIBBLE_SIZE-1:0]		code;						// current data word
 bit								din;						// Serial data input
-bool_t						 	valid_cntr;					// Valid outputs
-
+bool_t						 	valid_fsm;					// Valid outputs for the FSM instance
+bool_t 							valid_cntr; //Valid outputs for the counter instance
 
 // results checking variables
 int 							bitCount;			// number of bits in current data word
@@ -39,23 +39,25 @@ bit								check;				// asserted when it's time to check the valid bit
 bit 						clk = 1'b0;			// system clock
 bit							resetH = 1'b1;		// reset signal is asserted high
 bit							flag;
-// instantiate the counter DUT
-SerialTOFED_FSM cntr_DUT
+
+// instantiate the counter DUT & FSM DUT
+
+
+SerialTOFED_FSM fsm_DUT
 (
 	.clk(clk),
 	.resetH(resetH),
 	.din(din),
-	.valid(valid_cntr)
+	.valid(valid_fsm)
 );
 
-
-//debug check:
-always @(posedge clk)
-begin
-	$strobe($time, "din = %b, valid_cntr = %s\n", din, valid_cntr);
-end
-
-
+SerialTOFED_cntr ctr_DUT
+(
+.clk(clk),
+.resetH(resetH),
+.din(din),
+.valid(valid_cntr)
+);
 
 
 // populate the stimulus vector
@@ -107,16 +109,16 @@ always @(posedge clk) begin
 		$display($time, "\tDatastream = %b\n\n", datastream);
 	end
 	else if (check)begin
-		if ((onesCount == ONESPERFBIBBLE) && (valid_cntr != TRUE)) begin
-			$display($time, "\tERROR: data word = %5b\tNumber of 1's = %d\t\tvalid(counters) = %5s", code, onesCount, valid_cntr);
+		if ((onesCount == ONESPERFBIBBLE) && ((valid_cntr != TRUE) || (valid_fsm != TRUE))) begin
+			$display($time, "\tERROR: data word = %5b\tNumber of 1's = %d\t\tvalid(CTR) = %5s \t VALID(FSM) = %5s", code, onesCount, valid_cntr, valid_fsm);
 			errorcount++;
 		end
-		else if ((onesCount != ONESPERFBIBBLE) && (valid_cntr == TRUE)) begin
-			$display($time, "\tERROR: data word = %5b\tNumber of 1's = %d\t\tvalid(counters) = %5s", code, onesCount, valid_cntr);
+		else if ((onesCount != ONESPERFBIBBLE) && ((valid_cntr == TRUE) || (valid_fsm == TRUE))) begin
+			$display($time, "\tERROR: data word = %5b\tNumber of 1's = %d\t\tvalid(CTR) = %5s\tvalid(FSM) = %5s", code, onesCount, valid_cntr, valid_fsm);
 			errorcount++;
 		end
 		else begin
-			$display($time, "\tdata word = %5b\tvalid(counters) = %5s", code, valid_cntr);
+			$display($time, "\tdata word = %5b\tvalid(CTR) = %5s\tvalid(FSM) = %5s", code, valid_cntr, valid_fsm);
 		end
 	end
 end // display/check the results when check is asserted

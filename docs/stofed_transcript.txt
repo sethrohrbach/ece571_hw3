@@ -1,0 +1,56 @@
+run -all
+#                    5	System is in reset
+#                    5	Datastream = 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+# 
+# 
+#                   15	System is in reset
+#                   15	Datastream = 000000000100010000110010000101001100011101000010010101001011011000110101110011111000010001100101001110100101011011010111110001100111010110111110011101111101111100000
+# 
+# 
+#                   25	System is in reset
+#                   25	Datastream = 000000000100010000110010000101001100011101000010010101001011011000110101110011111000010001100101001110100101011011010111110001100111010110111110011101111101111100000
+# 
+# 
+#                   35	System is in reset
+#                   35	Datastream = 000000000100010000110010000101001100011101000010010101001011011000110101110011111000010001100101001110100101011011010111110001100111010110111110011101111101111100000
+# 
+# 
+#                   95	data word = 00000	valid(counters) = FALSE
+#                  145	data word = 11111	valid(counters) = FALSE
+#                  195	data word = 11110	valid(counters) = FALSE
+#                  245	data word = 11101	valid(counters) = FALSE
+#                  295	data word = 11100	valid(counters) = FALSE
+#                  345	data word = 11011	valid(counters) = FALSE
+#                  395	data word = 11010	valid(counters) = FALSE
+#                  445	data word = 11001	valid(counters) = FALSE
+#                  495	data word = 11000	valid(counters) =  TRUE
+#                  545	data word = 10111	valid(counters) = FALSE
+#                  595	data word = 10110	valid(counters) = FALSE
+#                  645	data word = 10101	valid(counters) = FALSE
+#                  695	data word = 10100	valid(counters) =  TRUE
+#                  745	data word = 10011	valid(counters) = FALSE
+#                  795	data word = 10010	valid(counters) =  TRUE
+#                  845	data word = 10001	valid(counters) =  TRUE
+#                  895	data word = 10000	valid(counters) = FALSE
+#                  945	data word = 01111	valid(counters) = FALSE
+#                  995	data word = 01110	valid(counters) = FALSE
+#                 1045	data word = 01101	valid(counters) = FALSE
+#                 1095	data word = 01100	valid(counters) =  TRUE
+#                 1145	data word = 01011	valid(counters) = FALSE
+#                 1195	data word = 01010	valid(counters) =  TRUE
+#                 1245	data word = 01001	valid(counters) =  TRUE
+#                 1295	data word = 01000	valid(counters) = FALSE
+#                 1345	data word = 00111	valid(counters) = FALSE
+#                 1395	data word = 00110	valid(counters) =  TRUE
+#                 1445	data word = 00101	valid(counters) =  TRUE
+#                 1495	data word = 00100	valid(counters) = FALSE
+#                 1545	data word = 00011	valid(counters) =  TRUE
+#                 1595	data word = 00010	valid(counters) = FALSE
+#                 1645	data word = 00001	valid(counters) = FALSE
+#                 1695	data word = 00000	valid(counters) = FALSE
+# 
+# 
+# NO ERRORS DETECTED - GOOD JOB!
+# ** Note: $stop    : /u/rseth/ece571_stofed_fsm/test_TOFEDserial_2of5.sv(158)
+#    Time: 1706 ns  Iteration: 0  Instance: /test_SerialTOFED_2of5
+# Break at /u/rseth/ece571_stofed_fsm/test_TOFEDserial_2of5.sv line 158
