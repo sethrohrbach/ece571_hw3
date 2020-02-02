@@ -49,6 +49,15 @@ SerialTOFED_FSM cntr_DUT
 );
 
 
+//debug check:
+always @(posedge clk)
+begin
+	$strobe($time, "din = %b, valid_cntr = %s\n", din, valid_cntr);
+end
+
+
+
+
 // populate the stimulus vector
 initial begin
 	// fill the stimulus vector from lowest to highest FBIBBLE value
