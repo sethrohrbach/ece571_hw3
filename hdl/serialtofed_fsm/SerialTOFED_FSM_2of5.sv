@@ -26,6 +26,7 @@ state_t next_s;
 //State update block:
 always_ff @(posedge clk)
 begin
+  /*
   if (resetH)
   begin
     if (din)
@@ -34,10 +35,10 @@ begin
     current_s <= S1_0;
   end
   else
-  begin
+  begin */
   $strobe($time, "\tCURRENT STATE = %s , NEXT STATE = %s, DIN = %b", current_s, next_s, din);
   current_s <= next_s;
-end
+//end
 end
 
 
@@ -199,7 +200,7 @@ end
 
 
 //And finally, output logic block:
-always_ff @(posedge next_s)
+always_comb // @(posedge next_s)
 begin
   if (current_s == S5_2)
   valid = TRUE;
