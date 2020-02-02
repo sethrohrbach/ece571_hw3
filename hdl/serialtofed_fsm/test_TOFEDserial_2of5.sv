@@ -13,6 +13,7 @@
 // The testbench does an exhaustive text on all of the 5-bit combinations,
 // applying the stimulus to two different implementations.
 // -Modified by Seth Rohrbach to work with a FSM version of the same serial checker, on a 2-of-5 code.
+// -Modified to test both the counter and the FSM at the same time.
 ///////////////////////////////
 
 import SerialTOFEDDefs_2of5::*;

@@ -81,7 +81,7 @@ end
     #100 $stop;
 
     $display("Simulation concluded!\n");
-    //$stop;
+    $stop;
   end
 
 endmodule
