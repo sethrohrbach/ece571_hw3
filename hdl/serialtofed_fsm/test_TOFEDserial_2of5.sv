@@ -40,7 +40,7 @@ bit 						clk = 1'b0;			// system clock
 bit							resetH = 1'b1;		// reset signal is asserted high
 bit							flag;
 // instantiate the counter DUT
-SerialTOFED_cntr cntr_DUT
+SerialTOFED_FSM cntr_DUT
 (
 	.clk(clk),
 	.resetH(resetH),

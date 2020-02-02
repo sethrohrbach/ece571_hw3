@@ -30,22 +30,18 @@ module regWithBenefits #(parameter W = 4)
   always_ff @(posedge ck, posedge rst) //Include rst so it is asych
   begin
     if (rst) //if rst, we reset.
-    internal_reg <= 0;
+    q <= 0;
     else if (clr) //also clear if clr is asserted high, but not on sensitivty list so it should be synchronous. after rst as well so rst will take precedecent if asserted.
-    internal_reg <= 0;
+    q <= 0;
     else if (ld) //Else if ld is asserted, we load
-    internal_reg <= d;
+    q <= d;
     else if (shl) //Else if shl, we do the shift.
     begin
-      internal_reg <= internal_reg << 1;
-      internal_reg[0] <= serialIn;
+      q <= q << 1;
+      q[0] <= serialIn;
     end
     //I don't see anything to give to a default case. We only want something to happen if a control signal is asserted.
   end
 
-  always_ff(posedge internal_reg) //Gonna make the output a different block for reliability.
-  begin
-    q <= internal_reg;
-  end
 
 endmodule
